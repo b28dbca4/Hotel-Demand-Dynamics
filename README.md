@@ -127,39 +127,3 @@ The dataset used is [Hotel Booking Demand](https://www.kaggle.com/datasets/jesse
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
-
-This project is licensed under the Apache 2.0 License - see the [LICENSE](LICENSE) file for details.
-│   │   └── model_trainer.py     # Model training functions
-│   ├── test/
-│   │   ├── __init__.py
-│   │   ├── test_data_processing.py # Tests for data processing
-│   │   └── test_models.py       # Tests for models
-│   ├── utils/
-│   │   └── config.py            # Configuration settings
-│   └── visualization/
-│       ├── __init__.py
-│       ├── dashboard.py         # Dashboard creation
-│       └── plot_utils.py        # Plotting utilities
-├── environment.yml   # Conda environment file
-├── requirements.txt  # Python dependencies
-├── LICENSE           # License file
-└── README.md
-```
-
-## Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch for your feature.
-3. Make your changes and add tests if applicable.
-4. Submit a pull request.
-
-## License
-
-This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
-
-## Contact
-
-For questions or issues, please open an issue on GitHub. 
