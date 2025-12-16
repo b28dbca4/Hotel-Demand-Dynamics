@@ -546,11 +546,6 @@ class HotelDashboard:
         save_path: str = 'hotel_dashboard_report.html',
         include_all: bool = True
     ) -> str:
-    def create_full_dashboard_report(
-        self,
-        save_path: str = 'hotel_dashboard_report.html',
-        include_all: bool = True
-    ) -> str:
         """
         Generate a complete dashboard report with all visualizations.
         
