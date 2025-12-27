@@ -19,6 +19,7 @@
    - [1.1. Mô Tả Bài Toán](#11-mô-tả-bài-toán)
    - [1.2. Động Lực và Ứng Dụng Thực Tế](#12-động-lực-và-ứng-dụng-thực-tế)
    - [1.3. Mục Tiêu Nghiên Cứu](#13-mục-tiêu-nghiên-cứu)
+   - [1.4. Phạm vi nghiên cứu](#14-phạm-vi-nghiên-cứu)
 2. [Dataset](#2-dataset)
    - [2.1. Nguồn Dữ Liệu](#21-nguồn-dữ-liệu)
    - [2.2. Mô Tả Các Features](#22-mô-tả-các-features)
@@ -163,6 +164,12 @@ Bộ dữ liệu gồm **32 biến**, được phân loại theo các nhóm ng�
 | `total_of_special_requests` | Tổng số yêu cầu đặc biệt | Integer |
 | `required_car_parking_spaces` | Số chỗ đậu xe yêu cầu | Integer |
 
+#### **Nhóm F: Trạng thái đặt phòng**
+| Feature | Mô Tả | Kiểu Dữ Liệu |
+|---------|-------|--------------|
+| reservation_status | Trạng thái cuối cùng của booking (Check-Out, Canceled, No-Show) | Categorical |
+| reservation_status_date | Ngày xác nhận trạng thái đặt phòng | Date |
+
 ### 2.3. Kích Thước và Đặc Điểm Dữ Liệu
 
 #### **Thống Kê Tổng Quan**
@@ -212,7 +219,7 @@ Quy trình xử lý dữ liệu được thực hiện theo methodology CRISP-DM
 │  Data Loading   │───▶│  Data Cleaning  │───▶│ Feature Eng.    │───▶│  Data Splitting │
 │                 │    │                 │    │                 │    │                 │
 │ • Load CSV      │    │ • Handle NaN    │    │ • Create vars   │    │ • Train/Test    │
-│ • Initial check │    │ • Remove outlier│    │ • Encoding      │    │ • Stratify      │
+│ • Initial check │    │ • Handle outlier│    │ • Encoding      │    │ • Stratify      │
 └─────────────────┘    └─────────────────┘    └─────────────────┘    └─────────────────┘
                                                                               │
                                                                               ▼
@@ -403,34 +410,69 @@ Các notebooks được thiết kế để chạy tuần tự theo thứ tự:
 
 #### **Notebook 1: Khám Phá Dữ Liệu (`01_data_explorations.ipynb`)**
 
-| Mục | Nội Dung | Output |
-|-----|----------|--------|
-| 1.1 | Tải và kiểm tra dữ liệu thô | Data summary |
-| 1.2 | Phân tích biến mục tiêu (is_canceled) | Distribution plots |
-| 1.3 | Phân tích biến ADR | Histogram, boxplot |
-| 1.4 | Kiểm tra missing values | Missing value report |
-| 1.5 | Phát hiện outliers | Outlier analysis |
+| Mục | Nội dung                                                   | Output                                  |
+| --- | ---------------------------------------------------------- | --------------------------------------- |
+| 1.1 | Mô tả chủ đề, phạm vi và bối cảnh dữ liệu                  | Data context & motivation               |
+| 1.2 | Xác định nguồn dữ liệu và giấy phép sử dụng                | Source & license verification           |
+| 1.3 | Phương thức thu thập dữ liệu và các thiên lệch tiềm ẩn     | Data collection description             |
+| 1.4 | Tổng quan dataset (kích thước, cấu trúc, trùng lặp)        | Shape, duplicate count                  |
+| 1.5 | Phân tích biến số: phân phối, xu hướng trung tâm, outliers | Descriptive stats, histograms, boxplots |
+| 1.6 | Phân tích biến phân loại: phân bố giá trị, danh mục hiếm   | Frequency tables, bar charts            |
+| 1.7 | Phân tích dữ liệu thiếu và chất lượng dữ liệu              | Missing value summary & patterns        |
+| 1.8 | Phân tích mối quan hệ giữa các biến                        | Correlation matrix, crosstabs           |
+| 1.9 | Tổng hợp quan sát ban đầu và vấn đề dữ liệu                | Initial insights & preprocessing needs  |
+
 
 #### **Notebook 2: Tiền Xử Lý Dữ Liệu (`02_data_preprocessing.ipynb`)**
 
-| Mục | Nội Dung | Output |
-|-----|----------|--------|
-| 2.1 | Xử lý missing values | Imputation log |
-| 2.2 | Xử lý outliers | Clipping summary |
-| 2.3 | Loại bỏ quan sát bất hợp lệ | Filter report |
-| 2.4 | Feature engineering | New features list |
-| 2.5 | Export dữ liệu | `clean_data.csv` |
+| Mục  | Nội dung                    | Output                       |
+| ---- | --------------------------- | ---------------------------- |
+| 2.1  | Load dữ liệu                | Raw dataframe                |
+| 2.2  | Loại bỏ dữ liệu trùng lặp   | Dataset không trùng          |
+| 2.3  | Chuẩn hóa kiểu dữ liệu      | Data types chuẩn hóa         |
+| 2.4  | Xử lý giá trị không hợp lệ  | Dataset hợp lệ               |
+| 2.5  | Xử lý missing values        | Missing values đã được xử lý |
+| 2.6  | Gộp danh mục hiếm           | Reduced sparsity             |
+| 2.7  | Đánh giá outliers           | Outlier summary              |
+| 2.8  | Kiểm tra chất lượng dữ liệu | Validated dataset            |
+| 2.9  | Lưu dữ liệu đã làm sạch     | `clean_data.csv`             |
+
 
 #### **Notebook 3: Phân Tích Kinh Doanh (`03_eda_business.ipynb`)**
+Q1 - Seasonality of Hotel Demand
+Nhu cầu đặt phòng khách sạn (số lượng booking, ADR và tổng số đêm lưu trú) thay đổi như thế nào theo các tháng và các năm đối với City Hotel và Resort Hotel?
 
-| Mục | Nội Dung | Output |
-|-----|----------|--------|
-| 3.1 | ADR theo loại khách sạn | Comparison charts |
-| 3.2 | Tỷ lệ hủy theo phân khúc | Heatmaps |
-| 3.3 | ADR-Cancel relationship | Scatter plots |
-| 3.4 | Segment value analysis | Strategic matrix |
+Q2 - Revenue Contribution by Market Segment
+Những phân khúc khách hàng nào mang lại doanh thu cao nhất cho khách sạn?
+
+Q3 - Geographic Distribution of Guests
+Những quốc gia nào đóng góp nhiều lượt khách và doanh thu nhất cho khách sạn, và mức độ tập trung của nguồn khách theo từng quốc gia như thế nào?
+
+| Mục | Nội dung                            | Output            |
+| --- | ----------------------------------- | ----------------- |
+| 3.1 | Phân tích mùa vụ nhu cầu đặt phòng  | Trend charts      |
+| 3.2 | Doanh thu theo phân khúc khách hàng | Comparison charts |
+| 3.3 | Phân bố khách theo quốc gia         | Country charts    |
+| 3.4 | Tổng hợp insight kinh doanh         | Business insights |
 
 #### **Notebook 4: Phân Tích Vận Hành và Mô Hình (`04_eda_operations_and_modeling.ipynb`)**
+Q4 - ADR & Cancellation Overview by Segment  
+ADR và tỷ lệ hủy đặt phòng khác nhau như thế nào giữa các loại khách sạn và các phân khúc khách hàng chính?
+
+Q5 - Driver Analysis (Non-Price Factors)
+Những yếu tố ngoài giá (ngoài ADR) nào ảnh hưởng mạnh nhất đến khả năng hủy đặt phòng, và sự khác biệt này giữa City Hotel và Resort Hotel ra sao?
+
+Q6 - ADR-Cancellation Trade-off  
+Mối quan hệ đánh đổi giữa ADR và xác suất hủy đặt phòng khác nhau như thế nào giữa các phân khúc khách hàng và loại hình khách sạn?
+
+Q7 - Optimal ADR under Cancellation Risk  
+Mức ADR nào tối ưu hóa doanh thu thực nhận kỳ vọng khi đã xét đến xác suất hủy đặt phòng theo từng loại khách sạn và phân khúc?
+
+Q8 - Revenue Impact Simulation  
+Việc áp dụng ADR tối ưu sẽ làm thay đổi doanh thu thực nhận kỳ vọng và tỷ lệ hủy như thế nào so với chính sách giá hiện tại?
+
+Q9 - Segment Prioritization & Rollout Strategy  
+Những phân khúc nào nên được ưu tiên triển khai chiến lược ADR tối ưu để tối đa hóa hiệu quả kinh doanh và kiểm soát rủi ro hủy?
 
 | Mục | Nội Dung | Output |
 |-----|----------|--------|
@@ -553,8 +595,8 @@ Hotel-Demand-Dynamics/
 │
 ├── data/                          # Thư mục dữ liệu
 │   ├── raw/                       # Dữ liệu thô (hotel_bookings.csv)
-│   ├── processed/                 # Dữ liệu đã xử lý (clean_data.csv)
-│   └── final/                     # Dữ liệu cuối cùng cho modeling
+│   └──processed/                 # Dữ liệu đã xử lý (clean_data.csv)
+│   
 │
 ├── notebooks/                        # Jupyter Notebooks phân tích
 │   ├── 01_data_explorations.ipynb    # Khám phá dữ liệu ban đầu
@@ -564,12 +606,11 @@ Hotel-Demand-Dynamics/
 │
 ├── src/                           # Source code Python
 │   ├── data/                      # Module xử lý dữ liệu
-│   │   └── data_loader.py         # Functions tải dữ liệu
+│   │   └── data_cleaner.py         # Functions tải dữ liệu
 │   │
 │   └── utils/                     # Utilities chung
 │       └── data_quality.py        # Kiểm tra chất lượng dữ liệu
 │
-├── reports/                       # Báo cáo và outputs
 ├── environment.yml                # Conda environment file
 ├── requirements.txt               # pip requirements
 ├── LICENSE                        # Apache 2.0 License
@@ -691,9 +732,6 @@ Dữ liệu gốc từ Kaggle được phát hành dưới **Creative Commons At
 
 ---
 
-*Cập nhật lần cuối: Tháng 12, 2024*
+*Cập nhật lần cuối: Tháng 12, 2025*
 
 </div>
-
-
-
