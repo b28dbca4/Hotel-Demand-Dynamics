@@ -1,8 +1,5 @@
 # Phân Tích Động Lực Nhu Cầu Khách Sạn và Tối Ưu Hóa Doanh Thu Dựa Trên Mô Hình Học Máy
 
-
-<div align="center">
-
 [![Python](https://img.shields.io/badge/Python-3.11-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-Apache_2.0-green.svg)](LICENSE)
 [![NumPy](https://img.shields.io/badge/NumPy-1.26-blue.svg)](https://numpy.org/)
@@ -10,11 +7,9 @@
 [![Scikit-learn](https://img.shields.io/badge/Scikit--learn-1.3.1-orange.svg)](https://scikit-learn.org/)
 [![Plotly](https://img.shields.io/badge/Plotly-5.17.0-purple.svg)](https://plotly.com/)
 
-</div>
-
 ---
 
-> **Tóm tắt:** Nghiên cứu này trình bày một phương pháp tiếp cận toàn diện trong việc phân tích hành vi hủy đặt phòng khách sạn và xây dựng mô hình tối ưu hóa doanh thu. Thông qua việc áp dụng các thuật toán học máy bao gồm Logistic Regression, Random Forest và Histogram-based Gradient Boosting, nghiên cứu đạt được hiệu năng dự đoán với PR-AUC đạt 0.7746 và ROC-AUC đạt 0.8547. Kết quả phân tích cho thấy việc áp dụng chiến lược giá tối ưu có thể tạo ra mức tăng doanh thu kỳ vọng lên đến 8-12% cho các phân khúc được ưu tiên, đồng thời cung cấp framework ra quyết định định lượng hỗ trợ quản lý doanh thu trong ngành khách sạn.
+> **Tóm tắt:** Nghiên cứu này trình bày một phương pháp tiếp cận toàn diện trong việc phân tích hành vi hủy đặt phòng khách sạn và xây dựng mô hình tối ưu hóa doanh thu. Thông qua việc áp dụng các thuật toán học máy bao gồm Logistic Regression, Random Forest và Histogram-based Gradient Boosting, nghiên cứu đạt được hiệu năng dự đoán với PR-AUC đạt ~0.8 và ROC-AUC đạt ~0.9. Kết quả phân tích cho thấy việc áp dụng chiến lược giá tối ưu có thể tạo ra mức tăng doanh thu kỳ vọng lên đến 8-12% cho các phân khúc được ưu tiên, đồng thời cung cấp framework ra quyết định định lượng hỗ trợ quản lý doanh thu trong ngành khách sạn.
 
 ---
 
@@ -81,6 +76,14 @@ Nghiên cứu đặt ra các mục tiêu cụ thể theo framework SMART:
 **Mục tiêu 4 - Tối Ưu Hóa Giá:** Xây dựng framework tính Expected Realized Revenue, xác định mức ADR tối ưu cho từng phân khúc, ước lượng revenue uplift khi áp dụng chiến lược giá tối ưu.
 
 **Mục tiêu 5 - Chuyển Đổi Insight Thành Hành Động:** Đề xuất lộ trình triển khai theo phase, xây dựng ma trận ưu tiên phân khúc, thiết lập các KPIs theo dõi hiệu quả triển khai.
+
+### 1.4. Phạm vi nghiên cứu
+
+Nghiên cứu được thực hiện trên bộ dữ liệu "Hotel Booking Demand" từ Kaggle, bao gồm 119,390 giao dịch đặt phòng của hai loại khách sạn (City Hotel và Resort Hotel) trong giai đoạn 2015-2017. Phạm vi phân tích bao trùm 9 câu hỏi nghiên cứu được phân loại thành ba nhóm chính:
+
+- **Nhóm phân tích kinh doanh** (Q1-Q3): Tính mùa vụ, đóng góp doanh thu theo phân khúc, phân bố địa lý
+- **Nhóm phân tích vận hành** (Q4-Q6): Mối quan hệ ADR-hủy phòng, các yếu tố tác động phi giá, kiểm định thống kê
+- **Nhóm tối ưu hóa** (Q7-Q9): Tối ưu ADR, mô phỏng tác động doanh thu, chiến lược ưu tiên triển khai
 
 ---
 
@@ -625,24 +628,11 @@ Hotel-Demand-Dynamics/
 
 ## 10. Thông Tin Tác Giả:
 
-<table border="1" cellspacing="0" cellpadding="8" align="center">
-  <tr>
-    <th>MSSV</th>
-    <th>Họ và Tên</th>
-  </tr>
-  <tr>
-    <td>23120265</td>
-    <td>Nguyễn Thái Hoàng</td>
-  </tr>
-  <tr>
-    <td>23120348</td>
-    <td>Ngô Thị Thục Quyên</td>
-  </tr>
-  <tr>
-    <td>23120415</td>
-    <td>Lăng Phú Quý</td>
-  </tr>
-</table>
+| MSSV     | Họ và Tên              |
+|----------|------------------------|
+| 23120265 | Nguyễn Thái Hoàng      |
+| 23120348 | Ngô Thị Thục Quyên     |
+| 23120415 | Lăng Phú Quý           |
 
 
 ### Thông Tin Khóa Học
@@ -663,7 +653,7 @@ Nếu có câu hỏi hoặc góp ý về dự án, vui lòng liên hệ:
 
    - 23120265@student.hcmus.edu.vn
 
-   - 23120384@student.hcmus.edu.vn 
+   - 23120348@student.hcmus.edu.vn 
 
    - 23120415@student.hcmus.edu.vn
  
