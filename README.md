@@ -439,13 +439,13 @@ Các notebooks được thiết kế để chạy tuần tự theo thứ tự:
 
 
 #### **Notebook 3: Phân Tích Kinh Doanh (`03_eda_business.ipynb`)**
-Q1 - Seasonality of Hotel Demand
+Q1 - Seasonality of Hotel Demand  
 Nhu cầu đặt phòng khách sạn (số lượng booking, ADR và tổng số đêm lưu trú) thay đổi như thế nào theo các tháng và các năm đối với City Hotel và Resort Hotel?
 
-Q2 - Revenue Contribution by Market Segment
+Q2 - Revenue Contribution by Market Segment  
 Những phân khúc khách hàng nào mang lại doanh thu cao nhất cho khách sạn?
 
-Q3 - Geographic Distribution of Guests
+Q3 - Geographic Distribution of Guests  
 Những quốc gia nào đóng góp nhiều lượt khách và doanh thu nhất cho khách sạn, và mức độ tập trung của nguồn khách theo từng quốc gia như thế nào?
 
 | Mục | Nội dung                            | Output            |
@@ -459,7 +459,7 @@ Những quốc gia nào đóng góp nhiều lượt khách và doanh thu nhất 
 Q4 - ADR & Cancellation Overview by Segment  
 ADR và tỷ lệ hủy đặt phòng khác nhau như thế nào giữa các loại khách sạn và các phân khúc khách hàng chính?
 
-Q5 - Driver Analysis (Non-Price Factors)
+Q5 - Driver Analysis (Non-Price Factors)  
 Những yếu tố ngoài giá (ngoài ADR) nào ảnh hưởng mạnh nhất đến khả năng hủy đặt phòng, và sự khác biệt này giữa City Hotel và Resort Hotel ra sao?
 
 Q6 - ADR-Cancellation Trade-off  
@@ -606,7 +606,7 @@ Hotel-Demand-Dynamics/
 │
 ├── src/                           # Source code Python
 │   ├── data/                      # Module xử lý dữ liệu
-│   │   └── data_cleaner.py         # Functions tải dữ liệu
+│   │   └── data_cleaner.py        # Functions tiền xử lý dữ liệu 
 │   │
 │   └── utils/                     # Utilities chung
 │       └── data_quality.py        # Kiểm tra chất lượng dữ liệu
